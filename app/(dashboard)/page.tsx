@@ -1,6 +1,16 @@
+"use client";
 import { UserButton } from "@clerk/nextjs";
-// import React, { Component } from 'react'
+
+import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
+import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
-  return <div></div>;
+  const { onOpen } = useNewAccount();
+
+  return (
+    <div>
+      <Button onClick={onOpen}>add a account</Button>
+    </div>
+  );
 }
