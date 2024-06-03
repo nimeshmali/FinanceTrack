@@ -6,11 +6,5 @@ import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
-  const { onOpen } = useNewAccount();
-
-  return (
-    <div>
-      <Button onClick={onOpen}>add a account</Button>
-    </div>
-  );
+  return <div></div>;
 }
