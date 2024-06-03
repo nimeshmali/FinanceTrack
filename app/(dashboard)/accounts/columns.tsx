@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowUpDown } from "lucide-react";
+import { Actions } from "./actions";
 
 export type ResponseType = InferResponseType<
   typeof client.api.accounts.$get,
@@ -43,14 +44,18 @@ export const columns: ColumnDef<ResponseType>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
+          Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
+  // {
+  //   accessorKey: "amount",
+  //   header: "Amount",
+  // },
   {
-    accessorKey: "amount",
-    header: "Amount",
+    id: "actions",
+    cell: ({ row }) => <Actions id={row.original.id} />,
   },
 ];
