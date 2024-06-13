@@ -5,33 +5,29 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { client } from "@/lib/hono";
 
 type ResponseType = InferResponseType<
-  (typeof client.api.accounts)[":id"]["$patch"]
+  (typeof client.api.transactions)[":id"]["$delete"]
 >;
-type RequestType = InferRequestType<
-  (typeof client.api.accounts)[":id"]["$patch"]
->["json"];
 
-export const useEditAccount = (id?: string) => {
+export const useDeleteAccount = (id?: string) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const mutation = useMutation<ResponseType, Error, RequestType>({
+  const mutation = useMutation<ResponseType, Error>({
     mutationFn: async (json) => {
-      const response = await client.api.accounts[":id"]["$patch"]({
-        json,
+      const response = await client.api.transactions[":id"]["$delete"]({
         param: { id },
       });
       return await response.json();
     },
     onSuccess: () => {
       toast({
-        title: "Account Updated",
+        title: "Transaction Deleted",
       });
-      queryClient.invalidateQueries({ queryKey: ["account", { id }] });
-      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["transaction", { id }] });
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
     },
     onError: () => {
       toast({
-        title: "Failed to create account",
+        title: "Failed to Delete transaction",
       });
     },
   });
