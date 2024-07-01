@@ -91,6 +91,7 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
       date: format(parse(item.date, dateFormat, new Date()), outputFormat),
     }));
     console.log(formattedData);
+    onSubmit(formattedData);
   };
   return (
     <div className="max-w-screen-2xl mx-auto pb-10 w-full -mt-24">
